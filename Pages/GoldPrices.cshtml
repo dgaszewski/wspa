@@ -1,0 +1,8 @@
+﻿@page
+@model WebApplication2.Pages.GoldPricesModel
+@{
+    foreach(var goldPrice in Model.GoldPrices)
+    {
+        <p>The price of the gold at @goldPrice.Date was @goldPrice.Price PLN</p>
+    }
+}

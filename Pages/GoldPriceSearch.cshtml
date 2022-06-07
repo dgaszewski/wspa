@@ -1,0 +1,14 @@
+﻿@page 
+@model GoldPriceSearch
+@{
+    ViewData["Title"] = "Search";
+}
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">  
+    <div class="form-group">
+        <label asp-for="PriceStarts">Get gold prices higher then: </label>
+        <input asp-for="PriceStarts" class="form-control" /> 
+    </div>  
+    <button type="submit" class="btn btn-primary">Get</button>
+</form>
