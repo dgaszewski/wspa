@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GoldPrices.ClassLibrary;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,17 @@ namespace GoldPrices.Desktop
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private async void DownloadGoldPrices(object sender, RoutedEventArgs e)
+        {
+            LoadingLabel.Visibility = Visibility.Visible;
+
+            IGoldPriceProvider provider = new PolishGoldPriceProvider();
+            var list = await provider.GetGoldPrices();
+
+            GoldPriceListBox.ItemsSource = list.Select(x => $"The price at {x.Date} was {x.Price}");
+            LoadingLabel.Visibility = Visibility.Collapsed;
         }
     }
 }

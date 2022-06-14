@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Call API" HorizontalAlignment="Left" Margin="79,50,0,0" VerticalAlignment="Top" Click="DownloadGoldPrices"/>
+        <ListBox x:Name="GoldPriceListBox" Margin="61,109,446,67"/>
+        <Label x:Name="LoadingLabel" Content="Loading..." Visibility="Hidden" HorizontalAlignment="Left" Margin="178,60,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
