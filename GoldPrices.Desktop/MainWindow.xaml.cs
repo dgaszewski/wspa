@@ -1,18 +1,7 @@
 ﻿using GoldPrices.ClassLibrary;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GoldPrices.Desktop
 {
@@ -34,7 +23,23 @@ namespace GoldPrices.Desktop
             var list = await provider.GetGoldPrices();
 
             GoldPriceListBox.ItemsSource = list.Select(x => $"The price at {x.Date} was {x.Price}");
+            
+            LoadingLabel.Visibility = Visibility.Collapsed; 
+        } 
+        private async void DownloadGoldPrice(object sender, SelectionChangedEventArgs e)
+        {
+            LoadingLabel.Visibility = Visibility.Visible;
+            var selectedItem = ((ListBox)sender).SelectedItem;
+            var date = ((string)selectedItem).Substring("The price at ".Length, "YYYY-MM-DD".Length);
+
+
+            IGoldPriceProvider provider = new PolishGoldPriceProvider();
+            var goldPrice = await provider.GetGoldPriceDetails(date);
+
+            DetailsTextBox.Text = $"Detailed price of the gold on selected date {date} is {goldPrice.Price}";
+
             LoadingLabel.Visibility = Visibility.Collapsed;
+            DetailsTextBox.Visibility = Visibility.Visible;
         }
     }
 }
